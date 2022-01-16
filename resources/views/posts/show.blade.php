@@ -89,58 +89,7 @@
                     </li>
                 </ul>
             @endforeach
-            <div id="root">
-                <ul v-for="comment in comments">
-                    <li v-if = "posts.id === comment.post_id" style= "border-style: double; background: rgba(255, 255, 255, 0.4);">
-                        <ul v-for="user in users">
-                            <ul v-if = "user.id === comment.user_id">
-                                (Ajax) Posted By @{{user.name}} @{{user.LastName}}
-                            </ul>
-                        </ul>
-                        <ul>
-                            <li style="font-size:70%"> Posted at: @{{comment.created_at}}</li>
-                            <li>@{{comment.commentContent}} </li>
-                        </ul>
-                    </li>
-                    <br>                        
-                </ul>
-            </div>
         </ul>   
     </ul>
 
-
-    <script>
-        var app = new Vue({
-            el: "#root",
-            data: {
-                comments: [],
-                posts: [],
-                users: [],
-            },
-            mounted() {
-                axios.get("{{ route('api.comments.index') }}")
-                .then( response => {
-                    this.comments = response.data;
-                })
-                .catch(response => {
-                    console.log(response);
-                })
-                axios.get("{{ route('api.posts.index', ['id' => $posts->id]) }}")
-                .then( response => {
-                    this.posts = response.data;
-                })
-                .catch(response => {
-                    console.log(response);
-                })
-                axios.get("{{ route('api.users.index') }}")
-                .then( response => {
-                    this.users = response.data;
-                })
-                .catch(response => {
-                    console.log(response);
-                })
-
-            },
-        });
-    </script>
 @endsection
