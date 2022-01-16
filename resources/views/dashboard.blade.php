@@ -1,17 +1,42 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
-                </div>
-            </div>
-        </div>
+@section('title')
+    Home Page
+@endsection
+
+@section('content')
+
+    <p>The Posts on the forum:</p>
+    <div id="root">
+        <form action="{{ route('posts.create')}}">
+            <input type="submit" value="Create Post" />
+        </form>
+        <ul style = "border-style: double; background: rgba(255, 255, 255, 0.4);">
+        @foreach ($users as $user)
+            @foreach ($posts = $user -> posts as $post) 
+                    Posted By: 
+                    <a href="{{route('users.show', ['id' => $user->id])}}">
+                        {{$user -> name}}
+                        {{$user -> LastName}}
+                    </a>
+                <li style= "border-style: double; background: white;">  
+                    <ul>
+                        <li style="font-size:70%">Time and Date Posted: {{$post -> created_at}}</li>
+                        <li>
+                            Post Title: 
+                            <a href="{{route('posts.show', ['id' => $post->id])}}">
+                                {{$post -> postTitle}}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <br>
+            @endforeach
+        @endforeach
+        </ul>
     </div>
-</x-app-layout>
+@endsection
+© 2022 GitHub, Inc.
+Terms
+Privacy
+Sec
