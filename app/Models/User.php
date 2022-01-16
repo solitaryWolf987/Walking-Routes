@@ -19,6 +19,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'LastName',
+        'age',
         'email',
         'password',
     ];
@@ -41,4 +43,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /** 
+     * Creates relationship to Model Comment - many to one.
+    */
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
+
+    /**
+     * Creates relationship to Model Post - many to one.
+     */
+    public function posts()
+    {
+        return $this->hasMany('App\Models\Post');
+    }
+
 }
