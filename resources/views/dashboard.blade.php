@@ -36,7 +36,3 @@
         </ul>
     </div>
 @endsection
-© 2022 GitHub, Inc.
-Terms
-Privacy
-Sec
