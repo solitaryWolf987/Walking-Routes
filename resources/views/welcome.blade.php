@@ -22,7 +22,7 @@
             body {
                 font-family: 'Nunito', sans-serif;
                 color: white;
-                background-image: url(images/Lake.jpg);
+                background-image: url(/images/picture2.jpg);
                 background-repeat: no-repeat;
                 background-attachment: fixed;
                 background-size: 100% 100%;

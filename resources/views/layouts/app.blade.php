@@ -19,6 +19,31 @@
                 background-attachment: fixed;
                 background-size: 100% 100%;
             }
+            .search-container {
+                float: right;
+            }
+
+            input[type=text] {
+                padding: 6px;
+                margin-top: 8px;
+                font-size: 17px;
+                border: none;
+            }
+
+            .search-container button {
+                float: right;
+                padding: 6px 14px;
+                margin-top: 8px;
+                margin-right: 8px;
+                background: #ddd;
+                font-size: 17px;
+                border: none;
+                cursor: pointer;
+            }
+
+            .search-container button:hover {
+                background: #ccc;
+            }
         </style> 
 
     </head>
@@ -33,6 +58,12 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/dashboard">Home <span class="sr-only">(current)</span></a>
                 </li>
+                <div class="search-container">
+                    <form action="/action_page.php">
+                        <input type="text" placeholder="Search..." name="search">
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('users.index') }}">Users</a>
                 </li>
