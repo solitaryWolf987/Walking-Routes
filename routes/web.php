@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\SearchController;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
@@ -87,6 +88,8 @@ Route::post('/comments/{id}', [CommentController::class, 'update'])
 Route::get('/comments/destroy/{id}', [CommentController::class, 'destroy'])
     ->name('comments.destroy');
 
+Route::get('/search', [SearchController::class, 'index'])
+    ->name('search');
 
 
 Route::resource('post', PostController::class);

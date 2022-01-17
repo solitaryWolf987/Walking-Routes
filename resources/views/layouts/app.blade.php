@@ -58,12 +58,14 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/dashboard">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <div class="search-container">
-                    <form action="/action_page.php">
-                        <input type="text" placeholder="Search..." name="search">
-                        <button type="submit">Submit</button>
-                    </form>
-                </div>
+                <li>
+                    <div class="search-container">
+                        <form method="get" action="{{ route('search') }}">
+                            <input type="text" placeholder="Search..." name="search">
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('users.index') }}">Users</a>
                 </li>
