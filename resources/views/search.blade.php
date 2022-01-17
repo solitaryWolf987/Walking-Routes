@@ -8,4 +8,7 @@
 
     <p>Search Results:</p>
     
+
+    Name: {{$user -> name}}
+    
 @endsection

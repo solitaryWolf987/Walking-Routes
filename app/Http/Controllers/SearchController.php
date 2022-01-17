@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Comment;
+use App\Models\User;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -11,9 +13,29 @@ class SearchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('search');
+        $search = $request->input('search');
+        $user = User::all();
+        //$post = Post::all();
+        $value = 0;
+        $input = 0;
+        foreach($user as $users){
+            if ($search == $users->name){
+                $value = $users->id;
+                $user = User::findOrFail($value);
+            }
+        }
+        /*
+        foreach($post as $posts){
+            if ($search == $posts->commentContent){
+                $value = $posts->id;
+                $post = Post::findOrFail($value);
+            }
+        }
+        */
+
+        return view('search', ['user' => $user]);
     }
 
     /**
@@ -45,7 +67,7 @@ class SearchController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**

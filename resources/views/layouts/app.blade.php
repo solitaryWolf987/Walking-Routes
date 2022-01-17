@@ -60,7 +60,7 @@
                 </li>
                 <li>
                     <div class="search-container">
-                        <form method="get" action="{{ route('search') }}">
+                        <form method="get" action="{{ route('search')}}">
                             <input type="text" placeholder="Search..." name="search">
                             <button type="submit">Submit</button>
                         </form>
