@@ -13,10 +13,5 @@
         No user found
     @endif
 
-    @if ($post)
-        Post: {{$post -> postTitle}}
-    @else
-        No post found
-    @endif
     
 @endsection

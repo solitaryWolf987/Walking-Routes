@@ -16,6 +16,12 @@ class SearchController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $user = User::where('name','like','%'.$search.'%')->orderBy('id');
+        return view('search', ['user' => $user]);
+
+        
+        /*
+        $search = $request->input('search');
         $user = User::all();
         $post = Post::all();
         $value = 0;
@@ -35,6 +41,8 @@ class SearchController extends Controller
         }
 
         return view('search', ['user' => $user], ['post' => $user]);
+        */
+
     }
 
     /**
