@@ -7,8 +7,16 @@
 @section('content')
 
     <p>Search Results:</p>
-    
+    @if ($user)
+        Name: {{$user -> name}}
+    @else
+        No user found
+    @endif
 
-    Name: {{$user -> name}}
+    @if ($post)
+        Post: {{$post -> postTitle}}
+    @else
+        No post found
+    @endif
     
 @endsection

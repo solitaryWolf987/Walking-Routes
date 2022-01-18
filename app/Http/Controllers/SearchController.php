@@ -17,25 +17,24 @@ class SearchController extends Controller
     {
         $search = $request->input('search');
         $user = User::all();
-        //$post = Post::all();
+        $post = Post::all();
         $value = 0;
-        $input = 0;
         foreach($user as $users){
             if ($search == $users->name){
                 $value = $users->id;
                 $user = User::findOrFail($value);
             }
+            
         }
-        /*
         foreach($post as $posts){
-            if ($search == $posts->commentContent){
+            if ($search == $posts->postTitle){
                 $value = $posts->id;
                 $post = Post::findOrFail($value);
             }
+            
         }
-        */
 
-        return view('search', ['user' => $user]);
+        return view('search', ['user' => $user], ['post' => $user]);
     }
 
     /**
