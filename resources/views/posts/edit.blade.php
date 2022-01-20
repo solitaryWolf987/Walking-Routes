@@ -6,12 +6,9 @@
     
     <form method="POST" action="{{ route('posts.update', ['id' => $post -> id])}}" enctype="multipart/form-data">
         @csrf
-        <p>User ID: <select name="users_id">
-                <option value=" {{$user -> id}}">
-                    {{$user -> name}}
-                    {{$user -> LastName}}
-                </option>
-            </select>
+        <p>User ID: 
+            {{$user -> name}}
+            {{$user -> LastName}}
         </p>
         <p>Title: <input type="text" name="postTitle"
             value="{{ $post -> postTitle}}"></p>

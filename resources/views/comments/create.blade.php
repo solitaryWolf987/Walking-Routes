@@ -5,18 +5,12 @@
 @section('content')
     <form method="POST" action="{{ route('comments.store')}}" enctype="multipart/form-data">
         @csrf
-        <p>User ID: <select name="users_id">
-                <option value=" {{$users->id}}">
-                    {{$users -> name}}
-                    {{$users -> LastName}}
-                </option>
-            </select>
+        <p>User ID: 
+            {{$users -> name}}
+            {{$users -> LastName}}
         </p>
-        <p>Post ID: <select name="posts_id">
-                <option value=" {{$posts->id}}">
-                    {{$posts -> id}}
-                </option>
-            </select>
+        <p>Post ID: 
+            {{$posts -> id}}
         </p>
         <p>Content: <input type="text" name="commentContent"
             value="{{ old ('commentContent')}}"></p>

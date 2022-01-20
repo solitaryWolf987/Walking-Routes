@@ -8,18 +8,12 @@
     @endphp
     <form method="POST" action="{{ route('comments.update', ['id' => $comment -> id])}}" enctype="multipart/form-data">
         @csrf
-        <p>User ID: <select name="users_id">
-                <option value=" {{$user->id}}">
-                    {{$user -> name}}
-                    {{$user -> LastName}}
-                </option>
-            </select>
+        <p>User ID: 
+            {{$user -> name}}
+            {{$user -> LastName}}
         </p>
-        <p>Post ID: <select name="posts_id">
-                <option value=" {{$comment->post_id}}">
-                    {{$comment -> posts_id}}
-                </option>
-            </select>
+        <p>Post ID: 
+            {{$comment -> posts_id}}
         </p>
         <p>Content: <input type="text" name="commentContent"
             value="{{ $comment -> commentContent}}"></p>

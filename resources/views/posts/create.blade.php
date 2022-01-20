@@ -5,12 +5,9 @@
 @section('content')
     <form method="POST" action="{{ route('posts.store')}}" enctype="multipart/form-data">
         @csrf
-        <p>User ID: <select name="users_id">
-                <option value=" {{$users -> id}}">
-                    {{$users -> name}}
-                    {{$users -> LastName}}
-                </option>
-            </select>
+        <p>User ID: 
+            {{$users -> name}}
+            {{$users -> LastName}}
         </p>
         <p>Title: <input type="text" name="postTitle"
             value="{{ old ('postTitle')}}"></p>
