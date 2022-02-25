@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\MapController;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
@@ -43,6 +44,10 @@ Route::get('auth.register', function () {
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');
+
+
+Route::get('/maps', [MapController::class, 'index'])
+    ->name('maps.testMap');
 
 Route::get('/users', [UserController::class, 'index'])
     ->name('users.index');
