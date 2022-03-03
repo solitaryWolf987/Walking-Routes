@@ -1,5 +1,5 @@
 
-
+<iframe width="1000" height="750" src="https://api.maptiler.com/maps/outdoor/?key=kVbYzZdvpCATj1RhoWrx#14.3/51.6194/-3.9448"></iframe>
 <!DOCTYPE html>
 <html>
 <head>
