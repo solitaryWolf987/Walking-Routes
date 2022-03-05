@@ -1,5 +1,5 @@
 
-<iframe width="1000" height="750" src="https://api.maptiler.com/maps/outdoor/?key=kVbYzZdvpCATj1RhoWrx#14.3/51.6194/-3.9448"></iframe>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,74 +12,77 @@
     <style>
     	#map {
         border: 1px solid #ddd;
-      border-radius: 4px;
-      padding: 5px;
-      width: 1000px;
-      height: 750px;
+        border-radius: 4px;
+        padding: 5px;
+        width: 1000px;
+        height: 750px;
       }
-      #fly {
-        position: relative;
-        margin: 0px auto;
-        width: 10%;
-        height: 0px;
-        padding: 0px;
-        border: none;
-        border-radius: 3px;
-        font-size: 12px;
-        text-align: center;
-        color: #000;
-        background: #68707b;
-      }
+      
     </style>
 </head>
 <body>
 	<div id="map"></div>
+  
   <input autocomplete="off" id="search" type="text" placeholder="Search..."/>
-	<script type="text/javascript">
+	<script>
+    const API_KEY="kVbYzZdvpCATj1RhoWrx";
     var geocoder = new maptiler.Geocoder({
         input: 'search',
         key: 'kVbYzZdvpCATj1RhoWrx'
       });
       geocoder.on('select', function(item) {
         console.log('Selected', item);
+        map.fitBounds(item.bbox);
+        const sourceResults = {...map.getSource('search-results')._data};
+        sourceResults.features = [item];
+        map.getSource('search-results').setData(sourceResults);
       });
-		var map = new maplibregl.Map({
-      container: 'map',
-      style: 'https://api.maptiler.com/maps/outdoor/style.json?key=kVbYzZdvpCATj1RhoWrx',
-      center: [0.1276, 51.5072],
-      zoom: 6,
-		});
+    
 
-		//add marker
-		var london = new maplibregl.Marker()
-		.setLngLat([-0.1276, 51.5072])
-		.addTo(map);
-
-    map.on('load', function () {
-      map.loadImage(
-        'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-plane-512.png',
-        function (error, image) {
-          if (error) throw error;
-          map.addImage('AirPort_icon', image);
+    const map = new maplibregl.Map({
+        container: 'map', // container id
+        style: `https://api.maptiler.com/maps/outdoor/style.json?key=${API_KEY}`, // style URL
+        center: [-0.1276, 51.5072], // starting position [lng, lat]
+        zoom: 6, // starting zoom
+        maxZoom: 18
+    });
 
 
-          map.addSource('AirPorts_points', {
+    map.on('load', () => {
+        map.addSource('search-results', {
             type: 'geojson',
-            data: 'https://api.maptiler.com/data/e3d8da3e-b365-4e71-9050-609de1ab6606/features.json?key=kVbYzZdvpCATj1RhoWrx'
-          });
-
-          map.addLayer({
-            'id': 'AirPorts',
-            'type': 'symbol',
-            'source': 'AirPorts_points',
-            'layout': {
-              'icon-image': 'AirPort_icon',
-              'icon-size': 0.05
+            data: {
+                "type": "FeatureCollection",
+                "features": []
             }
-          });
-        }
-      );
-		});
-	</script>
+        });
+
+        map.addLayer({
+            'id': 'line-result',
+            'type': 'line',
+            'source': 'search-results',
+            'paint': {
+                'line-color': '#B42222',
+                'line-width': 5,
+                'line-opacity': 0.5
+            },
+            'filter': ['==', '$type', 'LineString']
+        });
+        
+        map.addLayer({
+            'id': 'point-result',
+            'type': 'circle',
+            'source': 'search-results',
+            'paint': {
+                'circle-radius': 8,
+                'circle-color': '#B42222',
+                'circle-opacity': 0.5
+            },
+            'filter': ['==', '$type', 'Point']
+        });
+
+    });
+
+</script>
 </body>
 </html>
