@@ -37,7 +37,7 @@
         sourceResults.features = [item];
         map.getSource('search-results').setData(sourceResults);
       });
-    
+      
 
     const map = new maplibregl.Map({
         container: 'map', // container id
@@ -46,6 +46,9 @@
         zoom: 6, // starting zoom
         maxZoom: 18
     });
+    var london = new maplibregl.Marker()
+		.setLngLat([-0.1276, 51.5072])
+		.addTo(map);
 
 
     map.on('load', () => {
