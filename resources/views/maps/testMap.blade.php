@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>my map - london</title>
+	<title>my map tests</title>
   	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
     <script src="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.js"></script>
     <link href="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.css" rel="stylesheet" />
@@ -84,6 +84,10 @@
             'filter': ['==', '$type', 'Point']
         });
 
+
+        /*
+        On click function, so that when the user clicks on the point it tells you what it is/ where it is
+         */
     });
 
 </script>
