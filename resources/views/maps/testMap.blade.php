@@ -17,12 +17,38 @@
         width: 1000px;
         height: 750px;
       }
-      
+      #info {
+        display: block;
+        position: relative;
+        margin: 0px auto;
+        width: 50%;
+        padding: 10px;
+        border: none;
+        border-radius: 3px;
+        font-size: 12px;
+        text-align: center;
+        color: #222;
+        background: #fff;
+      }
+      .coordinates {
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        position: absolute;
+        bottom: 40px;
+        left: 10px;
+        padding: 5px 10px;
+        margin: 0;
+        font-size: 11px;
+        line-height: 18px;
+        border-radius: 3px;
+        display: none;
+      }
     </style>
 </head>
 <body>
 	<div id="map"></div>
-  
+  <pre id="info"></pre>
+  <pre id="coordinates" class="coordinates"></pre>
   <input autocomplete="off" id="search" type="text" placeholder="Search..."/>
 	<script>
     const points = [];
@@ -35,10 +61,9 @@
         console.log('Selected', item);
         map.fitBounds(item.bbox);
         const sourceResults = {...map.getSource('search-results')._data};
+        points.push(sourceResults);        
         sourceResults.features = [item];
         map.getSource('search-results').setData(sourceResults);
-        points.push(sourceResults);
-        console.log(points);
       });
       
 
@@ -52,8 +77,33 @@
     var london = new maplibregl.Marker()
 		.setLngLat([-0.1276, 51.5072])
 		.addTo(map);
+    
 
-
+    const marker = new maplibregl.Marker({
+      draggable: true
+      })
+      .setLngLat([0.1276, 51.5072])
+      .addTo(map);
+      
+      function onDragEnd() {
+      const lngLat = marker.getLngLat();
+      coordinates.style.display = 'block';
+      coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+    }
+    marker.on('dragend', onDragEnd);
+    
+    map.on('mousemove', function (e) {
+      document.getElementById('info').innerHTML =
+      // e.point is the x, y coordinates of the mousemove event relative
+      // to the top-left corner of the map
+      JSON.stringify(e.point) +
+      '<br />' +
+      // e.lngLat is the longitude, latitude geographical position of the event
+      JSON.stringify(e.lngLat.wrap());
+    });
+    
+  
+    
     map.on('load', () => {
         map.addSource('search-results', {
             type: 'geojson',
