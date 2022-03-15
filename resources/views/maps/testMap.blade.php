@@ -25,6 +25,7 @@
   
   <input autocomplete="off" id="search" type="text" placeholder="Search..."/>
 	<script>
+    const points = [];
     const API_KEY="kVbYzZdvpCATj1RhoWrx";
     var geocoder = new maptiler.Geocoder({
         input: 'search',
@@ -36,6 +37,8 @@
         const sourceResults = {...map.getSource('search-results')._data};
         sourceResults.features = [item];
         map.getSource('search-results').setData(sourceResults);
+        points.push(sourceResults);
+        console.log(points);
       });
       
 
