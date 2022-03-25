@@ -74,6 +74,7 @@
         zoom: 6, // starting zoom
         maxZoom: 18
     });
+    map.doubleClickZoom.disable();
     var london = new maplibregl.Marker()
 		.setLngLat([-0.1276, 51.5072])
 		.addTo(map);
@@ -95,6 +96,26 @@
     }
     marker.on('dragend', onDragEnd);
     
+    map.on('dblclick', function (e) {
+      
+      const marker = new maplibregl.Marker({
+      draggable: true
+      })
+      .setLngLat([e.lngLat.lng, e.lngLat.lat])
+      .addTo(map);
+      
+      function onDragEnd() {
+        point = [];
+        const lngLat = marker.getLngLat();
+        coordinates.style.display = 'block';
+        coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+        point.push(lngLat.lng, lngLat.lat);
+        points.push(point);
+      }
+      marker.on('dragend', onDragEnd);
+    });
+
+
     map.on('mousemove', function (e) {
       document.getElementById('info').innerHTML =
       // e.point is the x, y coordinates of the mousemove event relative
