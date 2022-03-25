@@ -61,7 +61,7 @@
         console.log('Selected', item);
         map.fitBounds(item.bbox);
         const sourceResults = {...map.getSource('search-results')._data};
-        points.push(sourceResults);        
+        //points.push(sourceResults);        
         sourceResults.features = [item];
         map.getSource('search-results').setData(sourceResults);
       });
@@ -86,9 +86,12 @@
       .addTo(map);
       
       function onDragEnd() {
+      point = [];
       const lngLat = marker.getLngLat();
       coordinates.style.display = 'block';
       coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+      point.push(lngLat.lng, lngLat.lat);
+      points.push(point);
     }
     marker.on('dragend', onDragEnd);
     
