@@ -50,6 +50,7 @@
   <pre id="info"></pre>
   <pre id="coordinates" class="coordinates"></pre>
   <input autocomplete="off" id="search" type="text" placeholder="Search..."/>
+  <button onclick="buttonFunction()">Route points show</button>
 	<script>
     const points = [];
     const API_KEY="kVbYzZdvpCATj1RhoWrx";
@@ -93,6 +94,7 @@
       coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
       point.push(lngLat.lng, lngLat.lat);
       points.push(point);
+      console.log(points);
     }
     marker.on('dragend', onDragEnd);
     
@@ -111,9 +113,36 @@
         coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
         point.push(lngLat.lng, lngLat.lat);
         points.push(point);
+        console.log(points);
       }
       marker.on('dragend', onDragEnd);
+
+      map.on('click', function (e) {
+        if(marker != null){
+          marker.remove();
+          const lngLat = marker.getLngLat();
+          point = [];
+          point.push(lngLat.lng, lngLat.lat);
+          var myIndex = points.indexOf(point);
+          if (myIndex !== -1) {
+              points.splice(myIndex, 1);
+          }
+        }
+        
+      });
+      console.log(points);
     });
+
+    
+    function buttonFunction() {
+      for(let i = 0; i < points.length; i++){
+      var london = new maplibregl.Marker()
+        .setLngLat([points[i][0], points[i][1]])
+        .addTo(map);
+    }
+    }
+    
+
 
 
     map.on('mousemove', function (e) {
