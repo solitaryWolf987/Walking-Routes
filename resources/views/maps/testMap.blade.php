@@ -136,11 +136,41 @@
 
     
     function buttonFunction() {
+      route_points = [];
       for(let i = 0; i < points.length; i++){
-      var london = new maplibregl.Marker()
-        .setLngLat([points[i][0], points[i][1]])
-        .addTo(map);
+        var london = new maplibregl.Marker()
+          .setLngLat([points[i][0], points[i][1]])
+          .addTo(map);
+        route_points.push(points[i][0]);
+        route_points.push(points[i][1]);
       }
+      map.addSource('route-path', {
+        type: 'geojson',
+        data: {
+          'type': 'Feature',
+          'properties': {},
+          'geometry': {
+            'type': 'LineString',
+            'coordinates': [
+              [route_points[0],route_points[1]],
+              [route_points[2],route_points[3]]
+            ]
+          }
+        }
+      });
+      map.addLayer({
+        'id': 'route-path',
+        'type': 'line',
+        'source': 'route-path',
+        'layout': {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        'paint': {
+          'line-color': '#888',
+          'line-width': 8
+        }
+      });
     }
 
     
@@ -163,34 +193,7 @@
     
     map.on('load', () => {
 
-      map.addSource('route', {
-        type: 'geojson',
-        data: {
-          'type': 'Feature',
-          'properties': {},
-          'geometry': {
-          'type': 'LineString',
-          'coordinates': [
-            [-0.1276, 51.5072],
-            [-1.7156, 52.0825]
-          ]
-          }
-        }
-      });
-
-      map.addLayer({
-        'id': 'route',
-          'type': 'line',
-          'source': 'route',
-          'layout': {
-          'line-join': 'round',
-          'line-cap': 'round'
-          },
-          'paint': {
-          'line-color': '#888',
-          'line-width': 8
-          }
-      });
+      
 
 
         map.addSource('search-results', {
