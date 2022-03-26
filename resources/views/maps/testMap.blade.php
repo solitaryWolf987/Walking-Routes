@@ -101,25 +101,7 @@
     marker.on('dragend', onDragEnd);
     
     map.on('dblclick', function (e) {
-      
-      const marker = new maplibregl.Marker({
-      draggable: true
-      })
-      .setLngLat([e.lngLat.lng, e.lngLat.lat])
-      .addTo(map);
-      
-      function onDragEnd() {
-        point = [];
-        const lngLat = marker.getLngLat();
-        coordinates.style.display = 'block';
-        coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
-        point.push(lngLat.lng, lngLat.lat);
-        points.push(point);
-        console.log(points);
-      }
-      marker.on('dragend', onDragEnd);
-
-      
+      addMarker(e); 
     });
 
     function addMarker(position) {
@@ -130,6 +112,16 @@
       .addTo(map);
 
       markers.push(marker);
+      function onDragEnd() {
+        point = [];
+        const lngLat = marker.getLngLat();
+        coordinates.style.display = 'block';
+        coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+        point.push(lngLat.lng, lngLat.lat);
+        points.push(point);
+        console.log(points);
+      }
+      marker.on('dragend', onDragEnd);
     }
 
 
