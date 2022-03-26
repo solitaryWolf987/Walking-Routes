@@ -65,6 +65,7 @@
         //points.push(sourceResults);        
         sourceResults.features = [item];
         map.getSource('search-results').setData(sourceResults);
+        console.log(sourceResults);
       });
       
 
@@ -139,8 +140,11 @@
       var london = new maplibregl.Marker()
         .setLngLat([points[i][0], points[i][1]])
         .addTo(map);
+      }
     }
-    }
+
+    
+    
     
 
 
@@ -158,6 +162,37 @@
   
     
     map.on('load', () => {
+
+      map.addSource('route', {
+        type: 'geojson',
+        data: {
+          'type': 'Feature',
+          'properties': {},
+          'geometry': {
+          'type': 'LineString',
+          'coordinates': [
+            [-0.1276, 51.5072],
+            [-1.7156, 52.0825]
+          ]
+          }
+        }
+      });
+
+      map.addLayer({
+        'id': 'route',
+          'type': 'line',
+          'source': 'route',
+          'layout': {
+          'line-join': 'round',
+          'line-cap': 'round'
+          },
+          'paint': {
+          'line-color': '#888',
+          'line-width': 8
+          }
+      });
+
+
         map.addSource('search-results', {
             type: 'geojson',
             data: {
