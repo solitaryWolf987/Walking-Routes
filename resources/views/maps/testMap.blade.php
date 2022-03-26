@@ -83,22 +83,7 @@
 		.addTo(map);
     
 
-    const marker = new maplibregl.Marker({
-      draggable: true
-      })
-      .setLngLat([0.1276, 51.5072])
-      .addTo(map);
-      
-      function onDragEnd() {
-      point = [];
-      const lngLat = marker.getLngLat();
-      coordinates.style.display = 'block';
-      coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
-      point.push(lngLat.lng, lngLat.lat);
-      points.push(point);
-      console.log(points);
-    }
-    marker.on('dragend', onDragEnd);
+    
     
     map.on('dblclick', function (e) {
       addMarker(e); 
@@ -124,37 +109,32 @@
       marker.on('dragend', onDragEnd);
     }
 
+    function deleteMarker() {
 
-    function deleteMarkers() {
-      hideMarkers();
-      markers = [];
     }
 
     
     function buttonFunction() {
-      route_points = [];
       for(let i = 0; i < points.length; i++){
         var london = new maplibregl.Marker()
           .setLngLat([points[i][0], points[i][1]])
           .addTo(map);
-        route_points.push(points[i][0]);
-        route_points.push(points[i][1]);
       }
-      map.addSource('route-path', {
-        type: 'geojson',
-        data: {
-          'type': 'Feature',
-          'properties': {},
-          'geometry': {
-            'type': 'LineString',
-            'coordinates': [
-              [route_points[0],route_points[1]],
-              [route_points[2],route_points[3]],
-              [route_points[4],route_points[5]]
-            ]
+      for(let i = 0; i < points.length; i++){
+        map.addSource('route-path', {
+          type: 'geojson',
+          data: {
+            'type': 'Feature',
+            'properties': {},
+            'geometry': {
+              'type': 'LineString',
+              'coordinates': [
+                [points[i][0], points[i][1]]
+              ]
+            }
           }
-        }
-      });
+        });
+      }
       map.addLayer({
         'id': 'route-path',
         'type': 'line',
