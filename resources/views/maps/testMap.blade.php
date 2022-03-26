@@ -54,6 +54,7 @@
 	<script>
     const points = [];
     const API_KEY="kVbYzZdvpCATj1RhoWrx";
+    let markers = [];
     var geocoder = new maptiler.Geocoder({
         input: 'search',
         key: 'kVbYzZdvpCATj1RhoWrx'
@@ -118,21 +119,24 @@
       }
       marker.on('dragend', onDragEnd);
 
-      map.on('click', function (e) {
-        if(marker != null){
-          marker.remove();
-          const lngLat = marker.getLngLat();
-          point = [];
-          point.push(lngLat.lng, lngLat.lat);
-          var myIndex = points.indexOf(point);
-          if (myIndex !== -1) {
-              points.splice(myIndex, 1);
-          }
-        }
-        
-      });
-      console.log(points);
+      
     });
+
+    function addMarker(position) {
+      const marker = new maplibregl.Marker({
+        draggable: true
+      })
+      .setLngLat([position.lngLat.lng, position.lngLat.lat])
+      .addTo(map);
+
+      markers.push(marker);
+    }
+
+
+    function deleteMarkers() {
+      hideMarkers();
+      markers = [];
+    }
 
     
     function buttonFunction() {
@@ -153,7 +157,8 @@
             'type': 'LineString',
             'coordinates': [
               [route_points[0],route_points[1]],
-              [route_points[2],route_points[3]]
+              [route_points[2],route_points[3]],
+              [route_points[4],route_points[5]]
             ]
           }
         }
