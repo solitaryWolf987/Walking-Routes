@@ -115,6 +115,13 @@
 
     
     function buttonFunction() {
+      route_points = [];
+      map.addSource('route-path', {
+        type: 'geojson',
+        data: {
+          
+        }
+      });
       for(let i = 0; i < points.length; i++){
         var markers = new maplibregl.Marker()
           .setLngLat([points[i][0], points[i][1]])
@@ -130,43 +137,40 @@
           endPoint.push(points[i+1][1]);
           console.log("start " + startPoint);
           console.log("end " + endPoint);
-          routeLines(startPoint, endPoint);
-
+          
         }
+        route_points.push(points[i][0]);
+        route_points.push(points[i][1]);
         
       }
+      routeLines(route_points);
     }
 
-    function routeLines(startPoint, endPoint) {
-      map.addSource('route-path', {
-        type: 'geojson',
-        data: {
-          'type': 'Feature',
-          'properties': {},
-          'geometry': {
-            'type': 'LineString',
-            'coordinates': [
-              [startPoint[0], startPoint[1]],
-              [endPoint[0], endPoint[1]]
-            ]
-          }
+    function routeLines(theCoords) {
+      map.addSource("route", {
+        "type": "geojson",
+        "data": {
+            "type": "Feature",
+            "properties": {},
+            "geometry": theCoords
         }
       });
 
       map.addLayer({
-        'id': 'route-path',
-        'type': 'line',
-        'source': 'route-path',
-        'layout': {
-          'line-join': 'round',
-          'line-cap': 'round'
+        "id": "route",
+        "type": "line",
+        "source": "route",
+        "layout": {
+            "line-join": "round",
+            "line-cap": "round"
         },
-        'paint': {
-          'line-color': '#888',
-          'line-width': 8
+        "paint": {
+            "line-color": "#ff0000",
+            "line-width": 4
         }
-      });
+      });  
     }
+  
       
     
 
