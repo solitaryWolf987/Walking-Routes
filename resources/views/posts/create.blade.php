@@ -50,11 +50,13 @@
             {{$users -> name}}
             {{$users -> LastName}}
         </p>
+        <p><input type="hidden" value = "{{$users -> id}}"name="users_id">
+        </p>
         <p>Title: <input type="text" name="postTitle"
             value="{{ old ('postTitle')}}"></p>
         <p>Content: <input type="text" name="postContent"
             value="{{ old ('postContent')}}"></p>
-        <p>File: <input type="file" name="file_path" required
+        <p>File: <input type="file" name="file_path"
             value="{{ old ('file_path')}}"></p>
         <input type="submit" value="Submit">
         <a href="{{ route('dashboard') }}">Cancel</a>
@@ -63,7 +65,6 @@
 
 
     <div id="map"></div>  
-    <pre id="coordinates" class="coordinates"></pre>
     <script>
         const points = [];
         const API_KEY="kVbYzZdvpCATj1RhoWrx";
@@ -87,50 +88,49 @@
         map.on('dblclick', function (e) {
             addMarker(e); 
         });
-
         function addMarker(position) {
-            const marker = new maplibregl.Marker({
-                draggable: true
-            })
-            .setLngLat([position.lngLat.lng, position.lngLat.lat])
-            .addTo(map);
+        const marker = new maplibregl.Marker({
+            draggable: true
+        })
+        .setLngLat([position.lngLat.lng, position.lngLat.lat])
+        .addTo(map);
 
-            markers.push(marker);
-            function onDragEnd() {
-                point = [];
-                const lngLat = marker.getLngLat();
-                coordinates.style.display = 'block';
-                coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
-                point.push(lngLat.lng, lngLat.lat);
-                points.push(point);
-                console.log(points);
-            }
-            marker.on('dragend', onDragEnd);
-            }
-            function buttonFunction() {
-            route_points = [];
+        markers.push(marker);
+        function onDragEnd() {
+            point = [];
+            const lngLat = marker.getLngLat();
+            coordinates.style.display = 'block';
+            coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+            point.push(lngLat.lng, lngLat.lat);
+            points.push(point);
+            console.log(points);
+        }
+        marker.on('dragend', onDragEnd);
+        }
+        function buttonFunction() {
+        route_points = [];
+        
+        for(let i = 0; i < points.length; i++){
+            var markers = new maplibregl.Marker()
+            .setLngLat([points[i][0], points[i][1]])
+            .addTo(map);
+            if (i+1 == points.length) {
+            console.log("no more points")
+            } else {
+            startPoint = [];
+            endPoint = [];
+            startPoint.push(points[i][0]);
+            startPoint.push(points[i][1]);
+            endPoint.push(points[i+1][0]);
+            endPoint.push(points[i+1][1]);
+            console.log("start " + startPoint);
+            console.log("end " + endPoint);
+            routeLines(startPoint, endPoint);
             
-            for(let i = 0; i < points.length; i++){
-                var markers = new maplibregl.Marker()
-                .setLngLat([points[i][0], points[i][1]])
-                .addTo(map);
-                if (i+1 == points.length) {
-                console.log("no more points")
-                } else {
-                startPoint = [];
-                endPoint = [];
-                startPoint.push(points[i][0]);
-                startPoint.push(points[i][1]);
-                endPoint.push(points[i+1][0]);
-                endPoint.push(points[i+1][1]);
-                console.log("start " + startPoint);
-                console.log("end " + endPoint);
-                routeLines(startPoint, endPoint);
-                
-                }
-                
-                        
             }
+            
+                    
+        }
         
         }
 

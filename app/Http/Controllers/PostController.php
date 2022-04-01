@@ -78,7 +78,10 @@ class PostController extends Controller
                 $file = $request->file('file_path');
                 $filename = $file->getClientOriginalName();
                 $file->storeAs('public/images', $filename);
-            } 
+            }
+            else {
+                $filename = null;
+            }
             $p = new Post;
             $p -> postTitle = $validateData['postTitle'];
             $p -> postContent = $validateData['postContent'];

@@ -34,7 +34,9 @@
             <li>{{$posts -> postContent}}</li>
         </ul>
         <ul>
-            <li><img src = "/storage/images/{{$posts -> file_path}}" width="500" height: auto; style= "border-style: solid;"></li>
+            @if($posts -> file_path != null)
+                <li><img src = "/storage/images/{{$posts -> file_path}}" width="500" height: auto; style= "border-style: solid;"></li>
+            @endif
             @foreach ($users as $user)
                 @if($user -> id == $posts -> user_id)
                     @if ($user -> id == auth()->id())
