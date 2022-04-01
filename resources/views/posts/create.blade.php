@@ -63,7 +63,9 @@
 
 
     <div id="map"></div>  
+    <pre id="coordinates" class="coordinates"></pre>
     <script>
+        const points = [];
         const API_KEY="kVbYzZdvpCATj1RhoWrx";
         let markers = [];
         var geocoder = new maptiler.Geocoder({
