@@ -116,12 +116,7 @@
     
     function buttonFunction() {
       route_points = [];
-      map.addSource('route-path', {
-        type: 'geojson',
-        data: {
-          
-        }
-      });
+      
       for(let i = 0; i < points.length; i++){
         var markers = new maplibregl.Marker()
           .setLngLat([points[i][0], points[i][1]])
@@ -137,22 +132,28 @@
           endPoint.push(points[i+1][1]);
           console.log("start " + startPoint);
           console.log("end " + endPoint);
+          routeLines(startPoint, endPoint);
           
         }
-        route_points.push(points[i][0]);
-        route_points.push(points[i][1]);
         
+                
       }
-      routeLines(route_points);
+      
     }
 
-    function routeLines(theCoords) {
+    function routeLines(startPoint, endPoint) {
       map.addSource("route", {
         "type": "geojson",
         "data": {
             "type": "Feature",
             "properties": {},
-            "geometry": theCoords
+            "geometry": {
+              'type': 'LineString',
+              'coordinates': [
+                [startPoint[0], startPoint[1]],
+                [endPoint[0], endPoint[1]]
+              ]
+            }
         }
       });
 
