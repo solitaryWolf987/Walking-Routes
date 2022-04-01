@@ -68,10 +68,11 @@ class PostController extends Controller
             'postContent' => 'required|max:255',
             'file_path' => 'mimes: doc,pdf,docx,zip,jpeg,png,jpg,gif,svg',
             'users_id' => 'required|Integer',
+            'coordinates' => 'required|json',
         ]);
 
         
-
+        dump($validateData['coordinates']);
             
 
             if ($request->hasFile('file_path')){
@@ -87,6 +88,7 @@ class PostController extends Controller
             $p -> postContent = $validateData['postContent'];
             $p -> file_path = $filename;
             $p -> user_id = $validateData['users_id'];
+            $p -> coordinates = $validateData['coordinates'];
             $p -> save();
             
             

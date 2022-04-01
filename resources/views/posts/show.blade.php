@@ -3,6 +3,46 @@
 @section('title', 'User Posts')
 
 @section('content')
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.js"></script>
+    <link href="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.css" rel="stylesheet" />
+    <script src="https://cdn.maptiler.com/maptiler-geocoder/v1.1.0/maptiler-geocoder.js"></script>
+    <link href="https://cdn.maptiler.com/maptiler-geocoder/v1.1.0/maptiler-geocoder.css" rel="stylesheet" />
+    <style>
+    	#map {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        width: 1000px;
+        height: 750px;
+      }
+      #info {
+        display: block;
+        position: relative;
+        margin: 0px auto;
+        width: 50%;
+        padding: 10px;
+        border: none;
+        border-radius: 3px;
+        font-size: 12px;
+        text-align: center;
+        color: #222;
+        background: #fff;
+      }
+      .coordinates {
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        position: absolute;
+        bottom: 40px;
+        left: 10px;
+        padding: 5px 10px;
+        margin: 0;
+        font-size: 11px;
+        line-height: 18px;
+        border-radius: 3px;
+        display: none;
+      }
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js"
     integrity="sha512-DZqqY3PiOvTP9HkjIWgjO6ouCbq+dxqWoJZ/Q+zPYNHmlnI2dQnbJ5bxAHpAMw+LXRm4D72EIRXzvcHQtE8/VQ=="
     crossorigin="anonymous"></script>
@@ -37,6 +77,24 @@
             @if($posts -> file_path != null)
                 <li><img src = "/storage/images/{{$posts -> file_path}}" width="500" height: auto; style= "border-style: solid;"></li>
             @endif
+            <div id="map"></div> 
+            <script>
+                const API_KEY="kVbYzZdvpCATj1RhoWrx";
+                let markers = [];
+                var geocoder = new maptiler.Geocoder({
+                    input: 'search',
+                    key: 'kVbYzZdvpCATj1RhoWrx'
+                });
+                const map = new maplibregl.Map({
+                    container: 'map', // container id
+                    style: `https://api.maptiler.com/maps/outdoor/style.json?key=${API_KEY}`, // style URL
+                    center: [-0.1276, 51.5072], // starting position [lng, lat]
+                    zoom: 6, // starting zoom
+                    maxZoom: 18
+                });
+            </script>
+
+
             @foreach ($users as $user)
                 @if($user -> id == $posts -> user_id)
                     @if ($user -> id == auth()->id())
