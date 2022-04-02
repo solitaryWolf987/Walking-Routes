@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('postContent')->nullable();
             $table->string('file_path')->nullable();
             $table->bigInteger('user_id')->unsigned();
-            $table->json('coordinates')->nullable();
+            $table->string('coordinates')->nullable();
             
             $table->foreign('user_id')->references('id')->
                on('users')->onDelete('cascade')->onUpdate('cascade');

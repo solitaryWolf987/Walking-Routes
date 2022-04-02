@@ -57,11 +57,12 @@
             value="{{ old ('postContent')}}"></p>
         <p>File: <input type="file" name="file_path"
             value="{{ old ('file_path')}}"></p>
-        <p><input type="hidden" value = "getPoints()" name="coordinates"></p>
-        <input type="submit" value="Submit">
+        <p><input type="hidden" id="example" name="coordinates"></p>
+        <input type="submit" onClick = "submission()" value="Submit">
         <a href="{{ route('dashboard') }}">Cancel</a>
     </form>
 
+    <button type="button" onClick="getPoints()">CLick</button>
 
 
     <div id="map"></div>  
@@ -103,8 +104,8 @@
             function onDragEnd() {
                 point = [];
                 const lngLat = marker.getLngLat();
-                coordinates.style.display = 'block';
-                coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+                //coordinates.style.display = 'block';
+                //coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
                 point.push(lngLat.lng, lngLat.lat);
                 points.push(point);
                 console.log(points);
@@ -113,9 +114,21 @@
         }
           
         function getPoints() {
-            var myJsonString = JSON.stringify(points);
-            return myJsonString;
+            
+            const pointsJoined = points.join(',');
+            console.log(pointsJoined);
+            return pointsJoined;
+            
         }
+
+        function submission() {
+            document.getElementById("example").setAttribute("value", getPoints());
+        }
+
+        
+       
+
+        
 
     </script>
 @endsection
