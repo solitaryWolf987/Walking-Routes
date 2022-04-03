@@ -116,7 +116,6 @@
         function getPoints() {
             
             const pointsJoined = points.join(',');
-            console.log(pointsJoined);
             return pointsJoined;
             
         }

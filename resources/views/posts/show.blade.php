@@ -47,7 +47,10 @@
     integrity="sha512-DZqqY3PiOvTP9HkjIWgjO6ouCbq+dxqWoJZ/Q+zPYNHmlnI2dQnbJ5bxAHpAMw+LXRm4D72EIRXzvcHQtE8/VQ=="
     crossorigin="anonymous"></script>
     <script src= "https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js"
+    integrity="sha512-DZqqY3PiOvTP9HkjIWgjO6ouCbq+dxqWoJZ/Q+zPYNHmlnI2dQnbJ5bxAHpAMw+LXRm4D72EIRXzvcHQtE8/VQ=="
+    crossorigin="anonymous"></script>
+    <script src= "https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>  
 
 
 
@@ -77,22 +80,11 @@
             @if($posts -> file_path != null)
                 <li><img src = "/storage/images/{{$posts -> file_path}}" width="500" height: auto; style= "border-style: solid;"></li>
             @endif
-            <div id="map"></div> 
-            <script>
-                const API_KEY="kVbYzZdvpCATj1RhoWrx";
-                let markers = [];
-                var geocoder = new maptiler.Geocoder({
-                    input: 'search',
-                    key: 'kVbYzZdvpCATj1RhoWrx'
-                });
-                const map = new maplibregl.Map({
-                    container: 'map', // container id
-                    style: `https://api.maptiler.com/maps/outdoor/style.json?key=${API_KEY}`, // style URL
-                    center: [-0.1276, 51.5072], // starting position [lng, lat]
-                    zoom: 6, // starting zoom
-                    maxZoom: 18
-                });
-            </script>
+            <div id="root">
+                <div id="map"></div> 
+            </div> 
+            
+            
 
 
             @foreach ($users as $user)
@@ -151,5 +143,55 @@
             @endforeach
         </ul>   
     </ul>
+
+
+    <script>
+        const API_KEY="kVbYzZdvpCATj1RhoWrx"; 
+        var geocoder = new maptiler.Geocoder({
+            input: 'search',
+            key: 'kVbYzZdvpCATj1RhoWrx'
+        });
+        const points = [];
+
+        var app = new Vue({
+            el: "#root",
+            data: {
+                posts: [],
+            },
+            mounted() {
+                axios.get("{{ route('api.posts.index', ['id' => $posts->id]) }}")
+                .then( response => {
+                    
+                    this.posts = response.data;
+                    const myArray = this.posts.coordinates.split(",");
+
+                    while (myArray.length) {
+                        const array = myArray.splice(0,2);
+                        points.push(array);
+                    }
+                    console.log("points: ",points);
+                    const map = new maplibregl.Map({
+                        container: 'map', // container id
+                        style: `https://api.maptiler.com/maps/outdoor/style.json?key=${API_KEY}`, // style URL
+                        center: [-0.1276, 51.5072], // starting position [lng, lat]
+                        zoom: 6, // starting zoom
+                        maxZoom: 18
+                    });
+                    for(let i = 0; i < points.length; i++){
+                        var markers = new maplibregl.Marker()
+                        .setLngLat([points[i][0], points[i][1]])
+                        .addTo(map);
+                    }
+                })
+                .catch(response => {
+                    console.log("catch", response);
+                })
+                
+            },
+
+            
+        });
+
+    </script>
 
 @endsection
