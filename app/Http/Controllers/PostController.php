@@ -138,17 +138,22 @@ class PostController extends Controller
             'postContent' => 'required|max:255',
             'file_path' => 'mimes: doc,pdf,docx,zip,jpeg,png,jpg,gif,svg',
             'users_id' => 'required|Integer',
+            'coordinates' => 'required',
         ]);
             if ($request->hasFile('file_path')){
                 $file = $request->file('file_path');
                 $filename = $file->getClientOriginalName();
                 $file->storeAs('public/images', $filename);
             }
+            else {
+                $filename = null;
+            }
         $post = Post::findOrFail($id);
         $post -> postTitle = $validateData['postTitle'];
         $post -> postContent = $validateData['postContent'];
         $post -> file_path = $filename;
         $post -> user_id = $validateData['users_id'];
+        $post -> coordinates = $validateData['coordinates'];
         $post -> save();
         session() -> flash('message', 'User Post was Updated.');
         return redirect()->route('posts.show', ['id' => $post -> id]);       

@@ -86,10 +86,7 @@
             maxZoom: 18
         });
         map.doubleClickZoom.disable();
-        var london = new maplibregl.Marker()
-            .setLngLat([-0.1276, 51.5072])
-            .addTo(map);
-
+        
         map.on('dblclick', function (e) {
             addMarker(e); 
         });
