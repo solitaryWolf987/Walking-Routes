@@ -53,8 +53,8 @@
         <p><input type="hidden" value = "{{$users -> id}}"name="users_id"></p>
         <p>Title: <input type="text" name="postTitle"
             value="{{ old ('postTitle')}}"></p>
-        <p>Content: <input type="text" name="postContent"
-            value="{{ old ('postContent')}}"></p>
+        <p>Content: <br><textarea rows = "5" cols = "60" name="postContent"
+            value="{{ old ('postContent')}}"></textarea></br></p>
         <p>File: <input type="file" name="file_path"
             value="{{ old ('file_path')}}"></p>
         <p><input type="hidden" id="example" name="coordinates"></p>
@@ -62,9 +62,10 @@
         <a href="{{ route('dashboard') }}">Cancel</a>
     </form>
 
-    <button type="button" onClick="getPoints()">CLick</button>
+    
 
-
+    <p> Select points on the map by double clicking to add a marker and dragging and dropping the marker to the point you want.
+        To Reset the points refresh the page </p>
     <div id="map"></div>  
     <pre id="coordinates" class="coordinates"></pre>
     <script>
