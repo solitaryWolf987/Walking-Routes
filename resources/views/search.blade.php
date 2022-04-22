@@ -8,7 +8,7 @@
 
     <p>Search Results:</p>
     @if ($user)
-        Name: {{$user -> name}}
+        Name: <a href="{{route('users.show', ['id' => $user->id])}}">{{$user -> name}} {{$user -> LastName}}</a>
     @else
         No user found
     @endif
