@@ -173,9 +173,9 @@
                     const map = new maplibregl.Map({
                         container: 'map', // container id
                         style: `https://api.maptiler.com/maps/outdoor/style.json?key=${API_KEY}`, // style URL
-                        center: [-0.1276, 51.5072], // starting position [lng, lat]
-                        zoom: 6, // starting zoom
-                        maxZoom: 18
+                        center: [points[0][0], points[0][1]], // starting position [lng, lat]
+                        zoom: 10, // starting zoom
+                        maxZoom: 20
                     });
                     for(let i = 0; i < points.length; i++){
                         var markers = new maplibregl.Marker()

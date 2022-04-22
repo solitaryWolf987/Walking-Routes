@@ -12,9 +12,11 @@
             {{$user -> name}}
             {{$user -> LastName}}
         </p>
+        <p><input type="hidden" value = "{{$posts -> user_id}}"name="users_id"></p>
         <p>Post ID: 
             {{$comment -> posts_id}}
         </p>
+        <p><input type="hidden" value = "{{$posts -> id}}"name="posts_id"></p>
         <p>Content: <input type="text" name="commentContent"
             value="{{ $comment -> commentContent}}"></p>
         <input type="submit" value="Submit">

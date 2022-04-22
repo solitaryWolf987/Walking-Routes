@@ -9,9 +9,11 @@
             {{$users -> name}}
             {{$users -> LastName}}
         </p>
+        <p><input type="hidden" value = "{{$posts -> user_id}}"name="users_id"></p>
         <p>Post ID: 
             {{$posts -> id}}
         </p>
+        <p><input type="hidden" value = "{{$posts -> id}}"name="posts_id"></p>
         <p>Content: <input type="text" name="commentContent"
             value="{{ old ('commentContent')}}"></p>
         <input type="submit" value="Submit">
