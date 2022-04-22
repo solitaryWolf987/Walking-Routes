@@ -68,7 +68,7 @@ class PostController extends Controller
             'postContent' => 'required|max:255',
             'file_path' => 'mimes: doc,pdf,docx,zip,jpeg,png,jpg,gif,svg',
             'users_id' => 'required|Integer',
-            'coordinates' => 'required',
+            'coordinates' => '',
         ]);
 
         
@@ -83,12 +83,19 @@ class PostController extends Controller
             else {
                 $filename = null;
             }
+            if ($validateData['coordinates']!= null){
+                $Coordinates = $validateData['coordinates'];
+            }
+            else {
+                $Coordinates = null;
+            }
+
             $p = new Post;
             $p -> postTitle = $validateData['postTitle'];
             $p -> postContent = $validateData['postContent'];
             $p -> file_path = $filename;
             $p -> user_id = $validateData['users_id'];
-            $p -> coordinates = $validateData['coordinates'];
+            $p -> coordinates = $Coordinates;
             $p -> save();
             
             
@@ -138,7 +145,7 @@ class PostController extends Controller
             'postContent' => 'required|max:255',
             'file_path' => 'mimes: doc,pdf,docx,zip,jpeg,png,jpg,gif,svg',
             'users_id' => 'required|Integer',
-            'coordinates' => 'required',
+            'coordinates' => 'longText',
         ]);
             if ($request->hasFile('file_path')){
                 $file = $request->file('file_path');

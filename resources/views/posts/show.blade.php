@@ -80,10 +80,11 @@
             @if($posts -> file_path != null)
                 <li><img src = "/storage/images/{{$posts -> file_path}}" width="500" height: auto; style= "border-style: solid;"></li>
             @endif
-            <div id="root">
-                <div id="map"></div> 
-            </div> 
-            
+            @if($posts -> coordinates != null)
+                <div id="root">
+                    <div id="map"></div> 
+                </div> 
+            @endif
             
 
 
