@@ -3,6 +3,7 @@
 @section('title', 'Create Post')
 
 @section('content')
+<!-- Post creation page-->
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
     <script src="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.js"></script>
     <link href="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.css" rel="stylesheet" />
@@ -63,7 +64,7 @@
     </form>
 
     
-
+<!-- All map creation javascript-->
     <p> Select points on the map by double clicking to add a marker and dragging and dropping the marker to the point you want.
         To Reset the points refresh the page </p>
     <div id="map"></div>  

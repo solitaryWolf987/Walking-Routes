@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\Post;
 use Illuminate\Database\Seeder;
-
+/*
+Adds random posts content into table
+*/
 class PostsTableSeeder extends Seeder
 {
     /**

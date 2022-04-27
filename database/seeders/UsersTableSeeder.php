@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
+/*
+Adds random users into table
+*/
 class UsersTableSeeder extends Seeder
 {
     /**

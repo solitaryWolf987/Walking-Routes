@@ -6,9 +6,11 @@
 
 @section('content')
 
+    <!-- Page to portray the search results -->
     <p>Search Results:</p>
-    @if ($user)
-        Name: <a href="{{route('users.show', ['id' => $user->id])}}">{{$user -> name}} {{$user -> LastName}}</a>
+    @if ($post)
+        Title: <a href="{{route('posts.show', ['id' => $post->id])}}">{{$post -> postTitle}}</a>
+        
     @else
         No user found
     @endif

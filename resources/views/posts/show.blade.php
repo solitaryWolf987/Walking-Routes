@@ -3,6 +3,7 @@
 @section('title', 'User Posts')
 
 @section('content')
+<!-- Shows posts content page-->
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
     <script src="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.js"></script>
     <link href="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.css" rel="stylesheet" />
@@ -87,7 +88,7 @@
             @endif
             
 
-
+        <!-- Allow logged in user to delete and edit their own post-->
             @foreach ($users as $user)
                 @if($user -> id == $posts -> user_id)
                     @if ($user -> id == auth()->id())
@@ -104,10 +105,12 @@
                     @endif
                 @endif
             @endforeach
+            <!-- Adding a comment-->
             <form action="{{ route('comments.create', ['id' => $posts->id])}}">
                 <input type="submit" value="Add Comment" />
             </form>
             <br>
+            <!-- Showing all comments related to the post-->
             @foreach ($comments = $posts -> comments as $comment)
                 <ul>
                     <li style= "border-style: double; background: rgba(255, 255, 255, 0.4);">
@@ -145,7 +148,7 @@
         </ul>   
     </ul>
 
-
+<!-- Map Javascript-->
     <script>
         const API_KEY="kVbYzZdvpCATj1RhoWrx"; 
         var geocoder = new maptiler.Geocoder({

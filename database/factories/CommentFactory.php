@@ -7,6 +7,9 @@ use App\Models\User;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/*
+Creates random comments content for testing
+*/
 class CommentFactory extends Factory
 {
     /**

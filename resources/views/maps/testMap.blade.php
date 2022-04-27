@@ -1,7 +1,6 @@
-
-
 <!DOCTYPE html>
 <html>
+  <!-- Map testing page -->
 <head>
 	<title>my map tests</title>
   	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />

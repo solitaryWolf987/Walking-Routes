@@ -4,6 +4,10 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
+
+/*
+Allows data to be seeded into the database
+*/
 class DatabaseSeeder extends Seeder
 {
     /**

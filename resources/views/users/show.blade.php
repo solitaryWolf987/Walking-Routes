@@ -3,6 +3,7 @@
 
 @section('content')
 
+<!-- Page to show a user's profile, and all their posts and comments-->
     <ul>
         <li>Name: {{$user -> name}} {{$user -> LastName}}</li>
         <li>Age: {{$user -> age}}</li>

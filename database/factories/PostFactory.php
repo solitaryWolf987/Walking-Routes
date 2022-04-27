@@ -6,6 +6,9 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/*
+Creates random posts content for testing
+*/
 class PostFactory extends Factory
 {
     /**

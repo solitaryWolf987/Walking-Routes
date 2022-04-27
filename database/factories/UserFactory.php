@@ -5,6 +5,10 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
+
+/*
+Creates random users for testing
+*/
 class UserFactory extends Factory
 {
     /**

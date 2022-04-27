@@ -6,6 +6,8 @@
 
 @section('content')
 
+<!-- Main page when logged in
+    Shows all the posts on the forum-->
     <p>The Posts on the forum:</p>
     <div id="root">
         <form action="{{ route('posts.create')}}">
