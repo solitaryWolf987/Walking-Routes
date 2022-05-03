@@ -70,10 +70,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('users.index') }}">Users</a>
                 </li>
+                <!--
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('maps.testMap') }}">Maps</a>
                 </li>
-                <li class="nav-item">
+                -->
+                 <li class="nav-item">
                     <a class="nav-link " href="{{route('users.show', ['id' => auth()->id()])}}" >Profile</a>    
                 </li>
                 <li class="nav-item">
