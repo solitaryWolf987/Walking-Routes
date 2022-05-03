@@ -145,7 +145,7 @@ class PostController extends Controller
             'postContent' => 'required|max:255',
             'file_path' => 'mimes: doc,pdf,docx,zip,jpeg,png,jpg,gif,svg',
             'users_id' => 'required|Integer',
-            'coordinates' => 'longText',
+            'coordinates' => '',
         ]);
             if ($request->hasFile('file_path')){
                 $file = $request->file('file_path');
