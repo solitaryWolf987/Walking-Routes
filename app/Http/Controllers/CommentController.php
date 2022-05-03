@@ -35,7 +35,7 @@ class CommentController extends Controller
     {
         $users = auth()->user();
         $posts = Post::findOrFail($id);
-        return view('comments.create', ['users' => $users], ['posts' => $posts]);
+        return view('comments.create', ['user' => $users], ['posts' => $posts]);
     }
 
     /**

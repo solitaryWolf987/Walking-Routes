@@ -6,10 +6,10 @@
     <form method="POST" action="{{ route('comments.store')}}" enctype="multipart/form-data">
         @csrf
         <p>User ID: 
-            {{$users -> name}}
-            {{$users -> LastName}}
+            {{$user -> name}}
+            {{$user -> LastName}}
         </p>
-        <p><input type="hidden" value = "{{$posts -> user_id}}"name="users_id"></p>
+        <p><input type="hidden" value = "{{$user -> id}}"name="users_id"></p>
         <p>Post ID: 
             {{$posts -> id}}
         </p>
